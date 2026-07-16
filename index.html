@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+  <title>NUMBER PREDICTION | Prediction Platform</title>
+
+  <meta name="description" content="NUMBER PREDICTION - Premium Prediction Platform" />
+  <meta name="theme-color" content="#0a0f1e" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1749278636200129');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1749278636200129&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+  <!-- THREE JS -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+    }
+  }
+  </script>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      overflow:hidden;
+      background:#05070f;
+      color:#fff;
+    }
+
+    #bg{
+      position:fixed;
+      inset:0;
+      z-index:0;
+    }
+
+    .main{
+      position:relative;
+      z-index:5;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:520px;
+      background:rgba(10,15,30,0.72);
+      border:1px solid rgba(255,255,255,0.12);
+      backdrop-filter:blur(14px);
+      border-radius:38px;
+      padding:28px 22px 30px;
+      text-align:center;
+      box-shadow:0 20px 50px rgba(0,0,0,0.45);
+      animation:fadeUp .7s ease;
+    }
+
+    /* LOGO SPACE */
+
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:20px;
+    }
+
+    .logo{
+      width:130px;
+      height:130px;
+      object-fit:cover;
+      border-radius:50%;
+      border:4px solid rgba(255,255,255,0.08);
+
+      background:#111827;
+
+      box-shadow:
+        0 10px 35px rgba(217,119,6,.35),
+        inset 0 2px 10px rgba(255,255,255,0.08);
+
+      animation:float 3s ease-in-out infinite;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      background:rgba(255,180,0,0.10);
+      border:1px solid rgba(255,180,0,0.20);
+      color:#FFD966;
+      font-size:13px;
+      font-weight:700;
+      padding:8px 16px;
+      border-radius:999px;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:42px;
+      font-weight:800;
+      color:#ffffff;
+      margin-bottom:14px;
+      letter-spacing:-1px;
+      line-height:1.1;
+    }
+
+    .desc{
+      color:#d7dced;
+      font-size:16px;
+      line-height:1.7;
+      margin-bottom:28px;
+      font-weight:500;
+    }
+
+    .join-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      text-decoration:none;
+      background:linear-gradient(135deg,#f59e0b,#d97706);
+      color:#ffffff;
+      font-size:22px;
+      font-weight:800;
+      padding:18px;
+      border-radius:70px;
+      transition:.25s;
+      box-shadow:0 10px 30px rgba(217,119,6,.35);
+      animation:pulse 2s infinite;
+    }
+
+    .join-btn:hover{
+      transform:scale(1.03);
+    }
+
+    .stats{
+      margin-top:28px;
+      display:flex;
+      justify-content:space-between;
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding-top:22px;
+      gap:10px;
+    }
+
+    .stat{
+      flex:1;
+    }
+
+    .stat h3{
+      color:#fbbf24;
+      font-size:24px;
+      margin-bottom:5px;
+    }
+
+    .stat p{
+      font-size:11px;
+      color:#9ea8c7;
+      letter-spacing:1px;
+    }
+
+    footer{
+      position:fixed;
+      bottom:12px;
+      width:100%;
+      text-align:center;
+      font-size:12px;
+      color:rgba(255,255,255,0.35);
+      z-index:5;
+    }
+
+    @keyframes pulse{
+      0%{
+        box-shadow:0 0 0 0 rgba(217,119,6,.45);
+      }
+      70%{
+        box-shadow:0 0 0 18px rgba(217,119,6,0);
+      }
+      100%{
+        box-shadow:0 0 0 0 rgba(217,119,6,0);
+      }
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-5px);
+      }
+      100%{
+        transform:translateY(0px);
+      }
+    }
+
+    @media(max-width:600px){
+
+      .card{
+        padding:24px 18px 28px;
+      }
+
+      .logo{
+        width:110px;
+        height:110px;
+      }
+
+      h1{
+        font-size:34px;
+      }
+
+      .desc{
+        font-size:15px;
+      }
+
+      .join-btn{
+        font-size:19px;
+        padding:16px;
+      }
+
+      .stat h3{
+        font-size:20px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="bg"></div>
+
+  <div class="main">
+
+    <div class="card">
+
+      <!-- PUT logo.jpg IN SAME FOLDER -->
+
+      <div class="logo-wrap">
+        <img src="logo.jpg" class="logo" alt="NUMBER PREDICTION LOGO">
+      </div>
+
+      <div class="badge">
+        <i class="fa-solid fa-shield-halved"></i>
+        SAFE & TRUSTED PLATFORM
+      </div>
+
+      <h1>RAEESS V2 PANEL</h1>
+
+      <div class="desc">
+        🔥 Premium Prediction Community 🔥
+        <br><br>
+        Smart Predictions • Better Decisions • Winning Strategies • Daily Premium Updates
+      </div>
+
+      <!-- TELEGRAM BUTTON -->
+
+      <a href="https://telegram.me/+ZfhIjdF0mW0xOTRh"
+         class="join-btn"
+         target="_blank">
+
+        <i class="fab fa-telegram-plane"></i>
+        JOIN TELEGRAM NOW
+        <i class="fa-solid fa-arrow-right"></i>
+
+      </a>
+
+      <div class="stats">
+
+        <div class="stat">
+          <h3>24/7</h3>
+          <p>LIVE SUPPORT</p>
+        </div>
+
+        <div class="stat">
+          <h3>15K+</h3>
+          <p>ACTIVE MEMBERS</p>
+        </div>
+
+        <div class="stat">
+          <h3>95%</h3>
+          <p>ACCURACY RATE</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © NUMBER PREDICTION — Premium Prediction Community
+  </footer>
+
+  <!-- THREE JS -->
+  <script type="module">
+
+    import * as THREE from 'three';
+
+    const container = document.getElementById('bg');
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    camera.position.z = 12;
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias:true
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    container.appendChild(renderer.domElement);
+
+    const ambient = new THREE.AmbientLight(0xffffff,0.5);
+    scene.add(ambient);
+
+    const light = new THREE.PointLight(0xf59e0b,1.2);
+    light.position.set(5,5,5);
+    scene.add(light);
+
+    const geometry = new THREE.SphereGeometry(1,64,64);
+
+    const material = new THREE.MeshStandardMaterial({
+      color:0xf59e0b,
+      emissive:0x332200,
+      metalness:0.5,
+      roughness:0.4
+    });
+
+    const sphere = new THREE.Mesh(geometry,material);
+
+    scene.add(sphere);
+
+    const ringGeo = new THREE.TorusGeometry(1.8,0.06,32,120);
+
+    const ringMat = new THREE.MeshStandardMaterial({
+      color:0xfbbf24,
+      emissive:0x664400
+    });
+
+    const ring = new THREE.Mesh(ringGeo,ringMat);
+
+    ring.rotation.x = Math.PI / 2;
+
+    scene.add(ring);
+
+    const particlesCount = 1000;
+
+    const positions = new Float32Array(particlesCount * 3);
+
+    for(let i=0;i<particlesCount*3;i++){
+      positions[i] = (Math.random()-0.5)*25;
+    }
+
+    const particleGeo = new THREE.BufferGeometry();
+
+    particleGeo.setAttribute(
+      'position',
+      new THREE.BufferAttribute(positions,3)
+    );
+
+    const particleMat = new THREE.PointsMaterial({
+      color:0xfbbf24,
+      size:0.04
+    });
+
+    const particles = new THREE.Points(
+      particleGeo,
+      particleMat
+    );
+
+    scene.add(particles);
+
+    function animate(){
+
+      requestAnimationFrame(animate);
+
+      sphere.rotation.y += 0.006;
+
+      ring.rotation.z += 0.008;
+
+      particles.rotation.y += 0.0005;
+
+      renderer.render(scene,camera);
+
+    }
+
+    animate();
+
+    window.addEventListener('resize',()=>{
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+      );
+
+    });
+
+  </script>
+
+</body>
+</html>
